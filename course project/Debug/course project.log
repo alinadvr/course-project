@@ -1,0 +1,5 @@
+﻿  Source.cpp
+C:\Users\dvory\source\repos\course project\course project\Source.cpp(34,21): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\dvory\source\repos\course project\course project\Source.cpp(149,13): warning C4326: возвращаемый тип "main" должен быть "int", а не "void"
+C:\Users\dvory\source\repos\course project\course project\Source.cpp(151,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  course project.vcxproj -> C:\Users\dvory\source\repos\course project\Debug\course project.exe
