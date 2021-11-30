@@ -113,13 +113,16 @@ void main() {
 					}
 					now = now->next;
 				}
+				if (headCopy == 0) {
+					headCopy = nowCopy;
+				}
 				nowCopy = nowCopy->next;
 			}
 
-			now = head;
-			while (now) {
-				now->print();
-				now = now->next;
+			nowCopy = headCopy;
+			while (nowCopy) {
+				nowCopy->print();
+				nowCopy = nowCopy->next;
 			}
 			break;
 		}
