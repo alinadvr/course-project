@@ -27,7 +27,6 @@
     <Text Include="cellOperator.txt" />
     <Text Include="name.txt" />
     <Text Include="patronymic.txt" />
-    <Text Include="aboutAuthor.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PhoneNumber.h">

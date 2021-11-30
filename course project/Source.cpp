@@ -13,7 +13,7 @@ void main() {
 
 	int quantity = 0, chsFiltr;
 	char chsMenu;
-	string userFiltr, aboutAuthor = "Дворянникова Алина Александровна\nСтудентка группы ОПК - 319";
+	string userFiltr;
 	ofstream fillObj;
 	COORD coordinate;
 	PhoneNumber* head = 0, * now = 0, * last = 0, * nextToNow = 0;
@@ -42,7 +42,7 @@ void main() {
 			<< "4 - Вывод всех экземпляров по алфавиту\n5 - Вывод экземпляра по фильтру\n6 - Запись информации обо всех экземпляров в файл\n"
 			<< "7 - Добавить экземпляр\n8 - Удалить экземпляр\n9 - Узнать информацию об авторе\n0 - Выход из программмы\n";
 		chsMenu = _getch();
-
+		
 		switch (chsMenu) {
 		case 72: 
 			//up
@@ -88,38 +88,41 @@ void main() {
 				cout << "Ошибка: Такого элемента не существует\n\n";
 			}
 			break;
-		case '4': 
+		case '4': {
 			system("cls");
 			now = head;
-			for (int i = 0; i < quantity; i++)
-			{
-				arrSurname[i] = now->getSurname();
-				now = now->next;
-			}
-			for (int i = 0; i < quantity - 1; i++)
-			{
-				for (int j = 0; j < quantity - i - 1; j++)
-				{
-					if (arrSurname[j] > arrSurname[j + 1])
-					{
-						swap(arrSurname[j], arrSurname[j + 1]);
+			PhoneNumber* headCopy = 0, * nowCopy = now;
+
+			for (int i = 0; i < quantity; i++) {
+				for (int j = 0; j < quantity - 1; j++) {
+					if (now->getSurname() < nowCopy->getSurname()) {
+						nowCopy = now;
 					}
-				}
-			}
-			for (int i = 0; i < quantity; i++)
-			{
-				now = head;
-				while (now)
-				{
-					if (now->getSurname() == arrSurname[i])
-					{
-						now->print();
-						break;
+					else if (now->getSurname() == nowCopy->getSurname()) {
+						if (now->getName() < nowCopy->getName()) {
+							nowCopy = now;
+						}
+						else if (now->getName() == nowCopy->getName()) {
+							if (now->getPatronymic() < nowCopy->getPatronymic()) {
+								nowCopy = now;
+							}
+							else if (now->getPatronymic() == nowCopy->getPatronymic()) {
+								nowCopy = now;
+							}
+						}
 					}
 					now = now->next;
 				}
+				nowCopy = nowCopy->next;
+			}
+
+			now = head;
+			while (now) {
+				now->print();
+				now = now->next;
 			}
 			break;
+		}
 		case '5':
 			system("cls");
 			cout << "1 - имя\n2 - фамилия\n3 - отчество\n4 - оператор\n";
@@ -286,7 +289,7 @@ void main() {
 			break;
 		case '9': 
 			system("cls");
-			cout << "Автор курсового проекта:\n" << aboutAuthor;
+			cout << "Автор курсового проекта: Дворянникова Алина Александровна\nСтудентка группы ОПК - 319\n";
 			break;
 		}
 

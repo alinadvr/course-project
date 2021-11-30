@@ -143,7 +143,6 @@
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="aboutAuthor.txt" />
     <Text Include="cellOperator.txt" />
     <Text Include="name.txt" />
     <Text Include="surname.txt" />
