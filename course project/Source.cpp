@@ -8,7 +8,8 @@
 using namespace std;
 
 void main() {
-	setlocale(LC_ALL, "ru");
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
 	srand(time(0));
 
 	int quantity = 0, chsFiltr;
@@ -130,12 +131,11 @@ void main() {
 			system("cls");
 			cout << "1 - имя\n2 - фамилия\n3 - отчество\n4 - оператор\n";
 			cin >> chsFiltr;
-			//system("cls");
+			system("cls");
 			switch (chsFiltr) {
 			case 1:
 				cout << "Введите имя: ";
 				cin >> userFiltr;
-				cout << userFiltr << endl;
 				now = head;
 				while (now)
 				{
@@ -173,7 +173,7 @@ void main() {
 				}
 				break;
 			case 4:
-				cout << "Введите оператор: ";
+				cout << "Введите оператор(Kyivstar, Vodafon, Life): ";
 				cin >> userFiltr;
 				now = head;
 				while (now)
