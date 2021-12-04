@@ -23,7 +23,6 @@ void main() {
 		cout << "Введите количество экземпляров: ";
 		cin >> quantity;
 	} while (quantity > 20 || quantity < 0);
-	string* arrSurname = new string[quantity];
 	system("cls");
 
 	for (int i = 0; i < quantity; i++) {
@@ -91,24 +90,33 @@ void main() {
 			break;
 		case '4': {
 			system("cls");
+			int result;
+			string temp;
+			PhoneNumber* nowCopy = 0, * headCopy = 0;
 			now = head;
-			PhoneNumber* headCopy = 0, * nowCopy = now;
-
-			for (int i = 0; i < quantity; i++) {
+			
+			for (int i = 0; i < quantity - 1; i++) {
 				for (int j = 0; j < quantity - 1; j++) {
-					if (now->getSurname() < nowCopy->getSurname()) {
-						nowCopy = now;
+					result = now->getSurname().compare(now->next->getSurname());
+					if (result == 1) {
+						nowCopy = now->next;
+						nowCopy->next = now;
 					}
-					else if (now->getSurname() == nowCopy->getSurname()) {
-						if (now->getName() < nowCopy->getName()) {
-							nowCopy = now;
+					else if (result == 0) {
+						result = now->getName().compare(now->next->getName());
+						if (result == 1) {
+							nowCopy = now->next;
+							nowCopy->next = now;
 						}
-						else if (now->getName() == nowCopy->getName()) {
-							if (now->getPatronymic() < nowCopy->getPatronymic()) {
-								nowCopy = now;
+						else if (result == 0) {
+							result = now->getPatronymic().compare(now->next->getPatronymic());
+							if (result == 1) {
+								nowCopy = now->next;
+								nowCopy->next = now;
 							}
-							else if (now->getPatronymic() == nowCopy->getPatronymic()) {
+							else if (result == 0) {
 								nowCopy = now;
+								nowCopy->next = now->next;
 							}
 						}
 					}
