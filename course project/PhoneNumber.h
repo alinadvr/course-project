@@ -30,6 +30,7 @@ public:
 	string getSurname();
 	string getPatronymic();
 	string getCellOperator();
+	int getNumber();
 
 private:
 	int funcRandOperator(int mas[], int operatorN);

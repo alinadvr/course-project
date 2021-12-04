@@ -90,49 +90,49 @@ void main() {
 			break;
 		case '4': {
 			system("cls");
-			int result;
-			string temp;
-			PhoneNumber* nowCopy = 0, * headCopy = 0;
+			int num;
+			string name;
+
 			now = head;
+
+			string* names = new string[quantity];
+			int* numbers = new int[quantity];
+
+			for (int i = 0; i < quantity; i++) {
+				name = now->getSurname() + " " + now->getName() + " " + now->getPatronymic();
+				names[i] = name;
+				numbers[i] = now->getNumber();
+				now = now->next;
+			}
 			
 			for (int i = 0; i < quantity - 1; i++) {
-				for (int j = 0; j < quantity - 1; j++) {
-					result = now->getSurname().compare(now->next->getSurname());
+				for (int j = 0; j < quantity - 1; j++)
+				{
+					int result = names[j].compare(names[j + 1]);
 					if (result == 1) {
-						nowCopy = now->next;
-						nowCopy->next = now;
+						string temp = names[j];
+						names[j] = names[j + 1];
+						names[j + 1] = temp;
+
+						int num = numbers[j];
+						numbers[j] = numbers[j + 1];
+						numbers[j + 1] = num;
 					}
-					else if (result == 0) {
-						result = now->getName().compare(now->next->getName());
-						if (result == 1) {
-							nowCopy = now->next;
-							nowCopy->next = now;
-						}
-						else if (result == 0) {
-							result = now->getPatronymic().compare(now->next->getPatronymic());
-							if (result == 1) {
-								nowCopy = now->next;
-								nowCopy->next = now;
-							}
-							else if (result == 0) {
-								nowCopy = now;
-								nowCopy->next = now->next;
-							}
-						}
+				}
+			}
+
+
+			for (int i = 0; i < quantity; i++) {
+				now = head;
+				while (now) {
+					if (now->getNumber() == numbers[i]) {
+						now->print();
 					}
 					now = now->next;
 				}
-				if (headCopy == 0) {
-					headCopy = nowCopy;
-				}
-				nowCopy = nowCopy->next;
 			}
 
-			nowCopy = headCopy;
-			while (nowCopy) {
-				nowCopy->print();
-				nowCopy = nowCopy->next;
-			}
+
 			break;
 		}
 		case '5':
