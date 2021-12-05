@@ -32,7 +32,6 @@ public:
 	int getNumber();
 	int getSumOne();
 	string getCellOperator();
-	int getNumber();
 
 private:
 	int funcRandOperator(int mas[], int operatorN);

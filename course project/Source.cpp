@@ -37,7 +37,6 @@ void main() {
 		}
 		last = new_obj;
 		last->newNumber();
-		PhoneNumber::sumAll += now->getSumOne();
 	}
 
 	do {
@@ -94,7 +93,6 @@ void main() {
 		case '4': {
 			system("cls");
 			int num;
-<<<<<<< HEAD
 			string* names = new string[quantity];
 			int* numbers = new int[quantity];
 
@@ -105,22 +103,6 @@ void main() {
 				now = now->next;
 			}
 
-=======
-			string name;
-
-			now = head;
-
-			string* names = new string[quantity];
-			int* numbers = new int[quantity];
-
-			for (int i = 0; i < quantity; i++) {
-				name = now->getSurname() + " " + now->getName() + " " + now->getPatronymic();
-				names[i] = name;
-				numbers[i] = now->getNumber();
-				now = now->next;
-			}
-			
->>>>>>> f49f4c6685f790d0b9465cc586ef3ca6d6b3c4ec
 			for (int i = 0; i < quantity - 1; i++) {
 				for (int j = 0; j < quantity - 1; j++)
 				{
@@ -137,10 +119,6 @@ void main() {
 				}
 			}
 
-<<<<<<< HEAD
-=======
-
->>>>>>> f49f4c6685f790d0b9465cc586ef3ca6d6b3c4ec
 			for (int i = 0; i < quantity; i++) {
 				now = head;
 				while (now) {
@@ -150,11 +128,6 @@ void main() {
 					now = now->next;
 				}
 			}
-<<<<<<< HEAD
-=======
-
-
->>>>>>> f49f4c6685f790d0b9465cc586ef3ca6d6b3c4ec
 			break;
 		}
 		case '5':

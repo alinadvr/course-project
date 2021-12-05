@@ -120,7 +120,3 @@ void PhoneNumber::sumOneNumb() {
 		sumOne += numberStr.at(i) - '0';
 	}
 }
-
-int PhoneNumber::getNumber() {
-	return num;
-}
