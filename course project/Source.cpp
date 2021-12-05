@@ -55,9 +55,9 @@ void main() {
 
 	do {
 		system("cls");
-		cout << "0 - Вывод всех экземпляров по порядку\n1 - Вывод всех экземпляров в обратном порядке\n2 - Вывод одного экземпляра по номеру\n"
-			<< "3 - Вывод всех экземпляров по алфавиту\n4 - Вывод экземпляра по фильтру\n5 - Запись информации обо всех экземпляров в файл\n"
-			<< "6 - Добавить экземпляр\n7 - Удалить экземпляр\n8 - Узнать информацию об авторе\n\nESC - Выход из программмы\n";
+		cout << "· Вывод всех экземпляров по порядку\n· Вывод всех экземпляров в обратном порядке\n· Вывод одного экземпляра по номеру\n"
+			<< "· Вывод всех экземпляров по алфавиту\n· Вывод экземпляра по фильтру\n· Запись информации обо всех экземпляров в файл\n"
+			<< "· Добавить экземпляр\n· Удалить экземпляр\n· Узнать информацию об авторе\n· Выход из программмы\n";
 		y = 0;
 		setCursor(y);
 		do {
@@ -68,12 +68,12 @@ void main() {
 				}
 			}
 			else if (chsMenu == 80) {
-				if (y < 8) {
+				if (y < 9) {
 					y++;
 				}
 			}
 			setCursor(y);
-		} while (chsMenu != 13 && chsMenu != 27);
+		} while (chsMenu != 13);
 		
 		switch (y) {
 		case 0:
@@ -244,7 +244,6 @@ void main() {
 					checkAvailability(availabilityValue);
 					break;
 				}
-				break;
 			}
 			break;
 		case 5:
@@ -276,11 +275,19 @@ void main() {
 				break;
 			}
 			if (numElement == 1) {
-				PhoneNumber* new_obj = new PhoneNumber();
-				PhoneNumber::sumAll += new_obj->getSumOne();
-				new_obj->next = head;
-				head->previous = new_obj;
-				head = new_obj;
+				if (quantity == 0) {
+					PhoneNumber* new_obj = new PhoneNumber();
+					PhoneNumber::sumAll += new_obj->getSumOne();
+					head = new_obj;
+					head->previous = 0;
+				}
+				else {
+					PhoneNumber* new_obj = new PhoneNumber();
+					PhoneNumber::sumAll += new_obj->getSumOne();
+					new_obj->next = head;
+					head->previous = new_obj;
+					head = new_obj;
+				}
 			}
 			else if (numElement == quantity + 1) {
 				PhoneNumber* new_obj = new PhoneNumber();
@@ -314,63 +321,72 @@ void main() {
 		case 7:
 			system("cls");
 			now = head;
-			cout << "Какой элемент удалить?(всего " << quantity << ")\n";
-			cin >> numElement;
-			if (numElement < 1 || numElement > quantity)
-			{
-				cout << "Ошибка: Вы вышли за пределы списка\n\n";
-				break;
-			}
-			else if (numElement == 1) {
-				PhoneNumber::sumAll -= head->getSumOne();
-				nextToNow = head->next;
-				if (quantity == 1) {
-					delete head;
-					head = 0;
-				}
-				else {
-					delete head;
-					head = nextToNow;
-					head->previous = 0;
-				}
-			}
-			else if (numElement == quantity) {
-				PhoneNumber::sumAll -= last->getSumOne();
-				now = last->previous;
-				delete last;
-				last = now;
-				last->next = 0;
+			if (quantity == 0) {
+				cout << "Список пустой\n\n";
 			}
 			else {
-				for (int i = 1; i < numElement - 1; i++) {
+				cout << "Какой элемент удалить?(всего " << quantity << ")\n";
+				cin >> numElement;
+				if (numElement < 1 || numElement > quantity)
+				{
+					cout << "Ошибка: Вы вышли за пределы списка\n\n";
+					break;
+				}
+				else if (numElement == 1) {
+					PhoneNumber::sumAll -= head->getSumOne();
+					nextToNow = head->next;
+					if (quantity == 1) {
+						delete head;
+						head = 0;
+					}
+					else {
+						delete head;
+						head = nextToNow;
+						head->previous = 0;
+					}
+				}
+				else if (numElement == quantity) {
+					PhoneNumber::sumAll -= last->getSumOne();
+					now = last->previous;
+					delete last;
+					last = now;
+					last->next = 0;
+				}
+				else {
+					for (int i = 1; i < numElement - 1; i++) {
+						now = now->next;
+					}
+					PhoneNumber::sumAll -= nextToNow->getSumOne();
+					nextToNow = now->next;
+					now->next = nextToNow->next;
+					delete nextToNow;
+					nextToNow = now->next;
+					nextToNow->previous = now;
+				}
+				quantity--;
+				now = head;
+				while (now) {
+					now->newNumber();
 					now = now->next;
 				}
-				PhoneNumber::sumAll -= nextToNow->getSumOne();
-				nextToNow = now->next;
-				now->next = nextToNow->next;
-				delete nextToNow;
-				nextToNow = now->next;
-				nextToNow->previous = now;
+				cout << "Елемент успешно удален\n\n";
 			}
-			quantity--;
-			now = head;
-			while (now) {
-				now->newNumber();
-				now = now->next;
-			}
-			cout << "Елемент успешно удален\n\n";
 			break;
 		case 8: 
 			system("cls");
 			cout << "Автор курсового проекта: Дворянникова Алина Александровна\nСтудентка группы ОПК - 319\n\n";
 			break;
+		case 9:
+			system("cls");
+			cout << "Спасибо, что воспользовались моим приложением\n\n";
+			break;
 		}
 
-		if (chsMenu != 27 && y < 9) {
+		if (y < 9) {
 			cout << "Для продолжения нажмите любую клавишу";
 			_getch();
 			system("cls");
 		}
 		
-	} while (chsMenu != 27);
+	} while (y != 9);
 }
