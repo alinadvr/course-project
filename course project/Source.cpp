@@ -9,13 +9,19 @@ using namespace std;
 
 int PhoneNumber::sumAll = 0;
 
+void checkAvailability(int availabilityValue) {
+	if (availabilityValue == 0) {
+		cout << "Ошибка: Такого элемента не существует";
+	}
+}
+
 void main() {
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 	srand(time(0));
 
-	int quantity = 0, chsFiltr;
-	char chsMenu;
+	int quantity = 0, availabilityValue = 0;
+	char chsMenu, chsFiltr;
 	string userFiltr;
 	ofstream fillObj;
 	COORD coordinate;
@@ -37,6 +43,7 @@ void main() {
 		}
 		last = new_obj;
 		last->newNumber();
+		PhoneNumber::sumAll += last->getSumOne();
 	}
 
 	do {
@@ -87,7 +94,7 @@ void main() {
 				now->print();
 			}
 			else {
-				cout << "Ошибка: Такого элемента не существует\n\n";
+				cout << "Ошибка: Такого элемента не существует";
 			}
 			break;
 		case '4': {
@@ -133,60 +140,72 @@ void main() {
 		case '5':
 			system("cls");
 			cout << "1 - имя\n2 - фамилия\n3 - отчество\n4 - оператор\n";
-			cin >> chsFiltr;
+			chsFiltr = _getch();
 			system("cls");
 			switch (chsFiltr) {
-			case 1:
+			case '1': 
 				cout << "Введите имя: ";
 				cin >> userFiltr;
+				system("cls");
 				now = head;
 				while (now)
 				{
 					if (now->getName() == userFiltr)
 					{
 						now->print();
+						availabilityValue++;
 					}
 					now = now->next;
 				}
+				checkAvailability(availabilityValue);
 				break;
-			case 2:
+			case '2':
 				cout << "Введите фамилию: ";
 				cin >> userFiltr;
+				system("cls");
 				now = head;
 				while (now)
 				{
 					if (now->getSurname() == userFiltr)
 					{
 						now->print();
+						availabilityValue++;
 					}
 					now = now->next;
 				}
+				checkAvailability(availabilityValue);
 				break;
-			case 3:
+			case '3':
 				cout << "Введите отчество: ";
 				cin >> userFiltr;
+				system("cls");
 				now = head;
 				while (now)
 				{
 					if (now->getPatronymic() == userFiltr)
 					{
 						now->print();
+						availabilityValue++;
 					}
 					now = now->next;
 				}
+				checkAvailability(availabilityValue);
 				break;
-			case 4:
+			case '4':
 				cout << "Введите оператор(Kyivstar, Vodafon, Life): ";
 				cin >> userFiltr;
+				system("cls");
 				now = head;
 				while (now)
 				{
 					if (now->getCellOperator() == userFiltr)
 					{
 						now->print();
+						availabilityValue++;
 					}
 					now = now->next;
 				}
+				checkAvailability(availabilityValue);
 				break;
 			}
 			break;
@@ -201,37 +220,37 @@ void main() {
 				fillObj << "\n";
 				now = now->next;
 			}
-			cout << "Елементы успешно записаны в файл\n\n";
+			cout << "Елементы успешно записаны в файл";
 
 			fillObj.close();
 			break;
 		case '7': 
 			system("cls");
 			now = head;
-			do {
-				cout << "На какое место вставить элемент?(всего " << quantity << ")\n";
-				cin >> numElement;
-				if (numElement < 1 || numElement > quantity + 1)
-				{
-					cout << "Ошибка: Вы вышли за пределы списка\nДля повторного ввода нажмите enter";
-					_getch();
-					system("cls");
-				}
-			} while (numElement < 1 || numElement > quantity + 1);
+			cout << "На какое место вставить элемент?(всего " << quantity << ")\n";
+			cin >> numElement;
+			if (numElement < 1 || numElement > quantity + 1)
+			{
+				cout << "Ошибка: Вы вышли за пределы списка";
+				break;
+			}
 			if (numElement == 1) {
 				PhoneNumber* new_obj = new PhoneNumber();
+				PhoneNumber::sumAll += new_obj->getSumOne();
 				new_obj->next = head;
 				head->previous = new_obj;
 				head = new_obj;
 			}
 			else if (numElement == quantity + 1) {
 				PhoneNumber* new_obj = new PhoneNumber();
+				PhoneNumber::sumAll += new_obj->getSumOne();
 				last->next = new_obj;
 				new_obj->previous = last;
 				last = new_obj;
 			}
 			else {
 				PhoneNumber* new_obj = new PhoneNumber();
+				PhoneNumber::sumAll += new_obj->getSumOne();
 				for (int i = 1; i < numElement - 1; i++) {
 					now = now->next;
 				}
@@ -249,27 +268,26 @@ void main() {
 				now->newNumber();
 				now = now->next;
 			}
-			cout << "Елемент успешно добавлен\n";
+			cout << "Елемент успешно добавлен";
 			break;
 		case '8':
 			system("cls");
 			now = head;
-			do {
-				cout << "Какой элемент удалить?(всего " << quantity << ")\n";
-				cin >> numElement;
-				if (numElement < 1 || numElement > quantity)
-				{
-					cout << "Ошибка: Вы вышли за пределы списка\nДля повторного ввода нажмите enter";
-					_getch();
-					system("cls");
-				}
-			} while (numElement < 1 || numElement > quantity);
-			if (numElement == 1) {
+			cout << "Какой элемент удалить?(всего " << quantity << ")\n";
+			cin >> numElement;
+			if (numElement < 1 || numElement > quantity)
+			{
+				cout << "Ошибка: Вы вышли за пределы списка";
+				break;
+			}
+			else if (numElement == 1) {
+				PhoneNumber::sumAll -= head->getSumOne();
 				nextToNow = head->next;
 				delete head;
 				head = nextToNow;
 			}
 			else if (numElement == quantity) {
+				PhoneNumber::sumAll -= last->getSumOne();
 				now = last->previous;
 				delete last;
 				last = now;
@@ -279,6 +297,7 @@ void main() {
 				for (int i = 1; i < numElement - 1; i++) {
 					now = now->next;
 				}
+				PhoneNumber::sumAll -= nextToNow->getSumOne();
 				nextToNow = now->next;
 				now->next = nextToNow->next;
 				delete nextToNow;
@@ -291,22 +310,16 @@ void main() {
 				now->newNumber();
 				now = now->next;
 			}
-			cout << "Елемент успешно удален\n";
+			cout << "Елемент успешно удален";
 			break;
 		case '9': 
 			system("cls");
-			cout << "Автор курсового проекта: Дворянникова Алина Александровна\nСтудентка группы ОПК - 319\n";
+			cout << "Автор курсового проекта: Дворянникова Алина Александровна\nСтудентка группы ОПК - 319";
 			break;
 		}
 
-
 		if (chsMenu != '0' && chsMenu < '10') {
-			cout << "Для продолжения нажмите любую клавишу";
-			_getch();
-			system("cls");
-		}
-		else if (chsMenu < '0' || chsMenu > '9') {
-			cout << "Ошибка: Введен некорректный пункт меню\nДля продолжения нажмите любую клавишу";
+			cout << "\n\nДля продолжения нажмите любую клавишу";
 			_getch();
 			system("cls");
 		}
