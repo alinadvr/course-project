@@ -20,7 +20,7 @@ private:
 public:
 	PhoneNumber* next = 0, * previous = 0;
 	static int sumAll;
-
+	
 public:
 	PhoneNumber();
 	void print();
@@ -29,6 +29,8 @@ public:
 	string getName();
 	string getSurname();
 	string getPatronymic();
+	int getNumber();
+	int getSumOne();
 	string getCellOperator();
 
 private:

@@ -61,7 +61,7 @@ void PhoneNumber::print() {
 	cout << num << ". " << surname << " " << name << " " << patronymic << endl
 		<< cellOperator << endl
 		<< "0" << operatorN << first << last << endl
-		<< "Сумма номера: " << sumOne << "\n\n";
+		<< "Сумма номера: " << sumOne << "Сумма всех номеров: " << to_string(sumAll) << "\n\n";
 }
 
 void PhoneNumber::newNumber() {
@@ -78,7 +78,7 @@ string PhoneNumber::printInFile() {
 	return to_string(num) + ". " + surname + " " + name + " " + patronymic + "\n"
 		+ cellOperator + "\n"
 		+ "0" + to_string(operatorN) + to_string(first) + to_string(last) + "\n"
-		+ "Сумма номера: " + to_string(sumOne);
+		+ "Сумма номера: " + to_string(sumOne) + "Сумма всех номеров: " + to_string(sumAll);
 }
 
 string PhoneNumber::getName() {
@@ -95,6 +95,14 @@ string PhoneNumber::getPatronymic() {
 
 string PhoneNumber::getCellOperator() {
 	return cellOperator;
+}
+
+int PhoneNumber::getNumber() {
+	return num;
+}
+
+int PhoneNumber::getSumOne() {
+	return sumOne;
 }
 
 int PhoneNumber::funcRandOperator(int mas[], int operatorN) {

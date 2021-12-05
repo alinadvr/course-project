@@ -1,4 +1,7 @@
-﻿  Source.cpp
-C:\Users\Алина\source\repos\course project\course project\Source.cpp(10,13): warning C4326: возвращаемый тип "main" должен быть "int", а не "void"
-C:\Users\Алина\source\repos\course project\course project\Source.cpp(13,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+﻿  PhoneNumber.cpp
+  Source.cpp
+C:\Users\Алина\source\repos\course project\course project\Source.cpp(12,13): warning C4326: возвращаемый тип "main" должен быть "int", а не "void"
+C:\Users\Алина\source\repos\course project\course project\Source.cpp(15,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+C:\Users\Алина\source\repos\course project\course project\Source.cpp(96,8): warning C4101: num: неиспользованная локальная переменная
+  Создание кода...
   course project.vcxproj -> C:\Users\Алина\source\repos\course project\x64\Debug\course project.exe
