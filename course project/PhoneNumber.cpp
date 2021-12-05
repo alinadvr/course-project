@@ -80,7 +80,7 @@ string PhoneNumber::printInFile() {
 		+ cellOperator + "\n"
 		+ "0" + to_string(operatorN) + to_string(first) + to_string(last) + "\n"
 		+ "Сумма номера: " + to_string(sumOne) + "\n"
-		+ "Сумма всех номеров: " + to_string(sumAll);
+		+ "Сумма всех номеров: " + to_string(sumAll) + "\n";
 }
 
 string PhoneNumber::getName() {
