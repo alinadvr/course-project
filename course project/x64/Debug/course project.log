@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿  PhoneNumber.cpp
   Source.cpp
 C:\Users\Алина\source\repos\course project\course project\Source.cpp(12,13): warning C4326: возвращаемый тип "main" должен быть "int", а не "void"
@@ -5,3 +6,10 @@ C:\Users\Алина\source\repos\course project\course project\Source.cpp(15,12)
 C:\Users\Алина\source\repos\course project\course project\Source.cpp(96,8): warning C4101: num: неиспользованная локальная переменная
   Создание кода...
   course project.vcxproj -> C:\Users\Алина\source\repos\course project\x64\Debug\course project.exe
+=======
+﻿  Source.cpp
+C:\Users\Admin\Desktop\CP\course-project\course project\Source.cpp(10,13): warning C4326: возвращаемый тип "main" должен быть "int", а не "void"
+C:\Users\Admin\Desktop\CP\course-project\course project\Source.cpp(13,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+C:\Users\Admin\Desktop\CP\course-project\course project\Source.cpp(93,8): warning C4101: num: неиспользованная локальная переменная
+  course project.vcxproj -> C:\Users\Admin\Desktop\CP\course-project\x64\Debug\course project.exe
+>>>>>>> f49f4c6685f790d0b9465cc586ef3ca6d6b3c4ec
