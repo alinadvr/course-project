@@ -49,7 +49,7 @@ void main() {
 		cout << "Введите количество экземпляров(до 20): ";
 		cin >> quantity;
 		if (quantity > 20 || quantity < 1) {
-			cout << "Ошибка: Вы ввели неккоректное количество экземпляров\nПопробуйте снова от 1 до 20\n\n";
+			cout << "Ошибка: Вы ввели некорректное количество экземпляров\nПопробуйте снова от 1 до 20\n\n";
 		}
 	} while (quantity > 20 || quantity < 1);
 	system("cls");
@@ -319,9 +319,9 @@ void main() {
 					for (int i = 1; i < numElement - 1; i++) {
 						now = now->next;
 					}
-					PhoneNumber::sumAll -= nextToNow->getSumOne();
 					nextToNow = now->next;
 					now->next = nextToNow->next;
+					PhoneNumber::sumAll -= nextToNow->getSumOne();
 					delete nextToNow;
 					nextToNow = now->next;
 					nextToNow->previous = now;
