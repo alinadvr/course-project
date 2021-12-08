@@ -32,6 +32,10 @@ public:
 	int getNumber();
 	int getSumOne();
 	string getCellOperator();
+	static void aboutAuthor();
+	void setCellOperator(string newCellOperator);
+	void setOperatorNumber(int chsOperator);
+	void setSumOneNumber();
 
 private:
 	int funcRandOperator(int mas[], int operatorN);

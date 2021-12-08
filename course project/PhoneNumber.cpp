@@ -61,8 +61,7 @@ void PhoneNumber::print() {
 	cout << num << ". " << surname << " " << name << " " << patronymic << endl
 		<< cellOperator << endl
 		<< "0" << operatorN << first << last << endl
-		<< "Сумма номера: " << sumOne << endl 
-		<< "Сумма всех номеров: " << to_string(sumAll) << "\n\n" ;
+		<< "Сумма номера: " << sumOne << "\n\n";
 }
 
 void PhoneNumber::newNumber() {
@@ -79,8 +78,7 @@ string PhoneNumber::printInFile() {
 	return to_string(num) + ". " + surname + " " + name + " " + patronymic + "\n"
 		+ cellOperator + "\n"
 		+ "0" + to_string(operatorN) + to_string(first) + to_string(last) + "\n"
-		+ "Сумма номера: " + to_string(sumOne) + "\n"
-		+ "Сумма всех номеров: " + to_string(sumAll) + "\n";
+		+ "Сумма номера: " + to_string(sumOne) + "\n";
 }
 
 string PhoneNumber::getName() {
@@ -121,4 +119,34 @@ void PhoneNumber::sumOneNumb() {
 	for (int i = 0; i < numberStr.length(); i++) {
 		sumOne += numberStr.at(i) - '0';
 	}
+}
+
+void PhoneNumber::aboutAuthor() {
+	cout << "Автор курсового проекта: Дворянникова Алина Александровна\nСтудентка группы ОПК - 319\n\n";
+}
+
+void PhoneNumber::setCellOperator(string newCellOperator)
+{
+	cellOperator = newCellOperator;
+}
+
+void PhoneNumber::setOperatorNumber(int chsOperator)
+{
+	switch (chsOperator) {
+	case 0:
+		operatorN = funcRandOperator(kyivstar, operatorN);
+		break;
+	case 1:
+		operatorN = funcRandOperator(vodafon, operatorN);
+		break;
+	case 2:
+		operatorN = funcRandOperator(life, operatorN);
+		break;
+	}
+}
+
+void PhoneNumber::setSumOneNumber()
+{
+	sumOne = 0;
+	sumOneNumb();
 }
