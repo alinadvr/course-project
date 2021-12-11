@@ -13,21 +13,9 @@ PhoneNumber::PhoneNumber() {
 	fPatronymic.open("patronymic.txt");
 	fcellOperator.open("cellOperator.txt");
 
-	int randName = rand() % 20 + 1;
-	for (int i = 0; i < randName; i++)
-	{
-		fName >> name;
-	}
-	int randSurname = rand() % 20 + 1;
-	for (int i = 0; i < randSurname; i++)
-	{
-		fSurname >> surname;
-	}
-	int randPatronymic = rand() % 20 + 1;
-	for (int i = 0; i < randPatronymic; i++)
-	{
-		fPatronymic >> patronymic;
-	}
+	name = randValueFromFile(fName);
+	surname = randValueFromFile(fSurname);
+	patronymic = randValueFromFile(fPatronymic);
 
 	randOperator = (rand() % 10) % 3 + 1;
 	for (int i = 0; i < randOperator; i++) {
@@ -42,12 +30,7 @@ PhoneNumber::PhoneNumber() {
 	case 3: operatorN = funcRandOperator(life, operatorN);
 		break;
 	}
-	first = rand() % 900 + 100;
-	int i = 1000;
-	while (i >= 1) {
-		last += rand() % 10 * i;
-		i /= 10;
-	}
+	createNumber();
 
 	fName.close();
 	fSurname.close();
@@ -85,12 +68,24 @@ string PhoneNumber::getName() {
 	return name;
 }
 
+void PhoneNumber::setName(string value) {
+	name = value;
+}
+
 string PhoneNumber::getSurname() {
 	return surname;
 }
 
+void PhoneNumber::setSurname(string value) {
+	surname = value;
+}
+
 string PhoneNumber::getPatronymic() {
 	return patronymic;
+}
+
+void PhoneNumber::setPatronymic(string value) {
+	patronymic = value;
 }
 
 string PhoneNumber::getCellOperator() {
@@ -106,8 +101,7 @@ int PhoneNumber::getSumOne() {
 }
 
 int PhoneNumber::funcRandOperator(int mas[], int operatorN) {
-	int randChs;
-	randChs = rand() % 3;
+	int randChs = rand() % 3;
 	for (int i = 0; i <= randChs; i++) {
 		operatorN = mas[i];
 	}
@@ -145,8 +139,27 @@ void PhoneNumber::setOperatorNumber(int chsOperator)
 	}
 }
 
+void PhoneNumber::createNumber() {
+	first = rand() % 900 + 100;
+	int i = 1000;
+	while (i >= 1) {
+		last += rand() % 10 * i;
+		i /= 10;
+	}
+}
+
 void PhoneNumber::setSumOneNumber()
 {
 	sumOne = 0;
 	sumOneNumb();
+}
+
+string PhoneNumber::randValueFromFile(ifstream &fValue) {
+	string value;
+	int randValue = rand() % 20 + 1;
+	for (int i = 0; i < randValue; i++)
+	{
+		fValue >> value;
+	}
+	return value;
 }

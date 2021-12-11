@@ -7,7 +7,7 @@
 
 using namespace std;
 
-int PhoneNumber::sumAll = 0;
+int PhoneNumber::sumAll = 0, PhoneNumber::quantity = 0;
 
 void setCursor(int y) {
 	COORD c = { 0, y };
@@ -40,21 +40,21 @@ void main() {
 	SetConsoleOutputCP(1251);
 	srand(time(0));
 
-	int quantity = 0, quantityMenuItem, y = 0;
+	int quantityMenuItem, y = 0, chsOperator;
 	string userFiltr;
 	ofstream fillObj;
 	PhoneNumber* head = 0, * now = 0, * last = 0, * nextToNow = 0;
 
 	do {
 		cout << "Введите количество экземпляров(до 20): ";
-		cin >> quantity;
-		if (quantity > 20 || quantity < 1) {
+		cin >> PhoneNumber::quantity;
+		if (PhoneNumber::PhoneNumber::quantity > 20 || PhoneNumber::PhoneNumber::quantity < 1) {
 			cout << "Ошибка: Вы ввели некорректное количество экземпляров\nПопробуйте снова от 1 до 20\n\n";
 		}
-	} while (quantity > 20 || quantity < 1);
+	} while (PhoneNumber::quantity > 20 || PhoneNumber::quantity < 1);
 	system("cls");
 
-	for (int i = 0; i < quantity; i++) {
+	for (int i = 0; i < PhoneNumber::quantity; i++) {
 		PhoneNumber* new_obj = new PhoneNumber();
 
 		if (head == 0) head = new_obj;
@@ -78,7 +78,7 @@ void main() {
 		case 0:
 			system("cls");
 			now = head;
-			if (quantity == 0) {
+			if (PhoneNumber::quantity == 0) {
 				cout << "Список пустой\n\n";
 			}
 			else {
@@ -92,7 +92,7 @@ void main() {
 		case 1:
 			system("cls");
 			now = last;
-			if (quantity == 0) {
+			if (PhoneNumber::quantity == 0) {
 				cout << "Список пустой\n\n";
 			}
 			else {
@@ -107,14 +107,14 @@ void main() {
 			system("cls");
 			now = head;
 			int numElement;
-			if (quantity == 0) {
+			if (PhoneNumber::quantity == 0) {
 				cout << "Список пустой\n\n5";
 			}
 			else {
-				cout << "Какой элемент вывести?(всего " << quantity << ")\n";
+				cout << "Какой элемент вывести?(всего " << PhoneNumber::quantity << ")\n";
 				cin >> numElement;
 				system("cls");
-				if (numElement <= quantity && numElement > 0) {
+				if (numElement <= PhoneNumber::quantity && numElement > 0) {
 					for (int i = 1; i < numElement; i++) {
 						now = now->next;
 					}
@@ -129,22 +129,22 @@ void main() {
 		case 3: {
 			system("cls");
 			int num;
-			string* names = new string[quantity];
-			int* numbers = new int[quantity];
+			string* names = new string[PhoneNumber::quantity];
+			int* numbers = new int[PhoneNumber::quantity];
 
-			if (quantity == 0) {
+			if (PhoneNumber::quantity == 0) {
 				cout << "Список пустой\n\n";
 			}
 			else {
 				now = head;
-				for (int i = 0; i < quantity; i++) {
+				for (int i = 0; i < PhoneNumber::quantity; i++) {
 					names[i] = now->getSurname() + " " + now->getName() + " " + now->getPatronymic();
 					numbers[i] = now->getNumber();
 					now = now->next;
 				}
 
-				for (int i = 0; i < quantity - 1; i++) {
-					for (int j = 0; j < quantity - 1; j++)
+				for (int i = 0; i < PhoneNumber::quantity - 1; i++) {
+					for (int j = 0; j < PhoneNumber::quantity - 1; j++)
 					{
 						int result = names[j].compare(names[j + 1]);
 						if (result == 1) {
@@ -159,7 +159,7 @@ void main() {
 					}
 				}
 
-				for (int i = 0; i < quantity; i++) {
+				for (int i = 0; i < PhoneNumber::quantity; i++) {
 					now = head;
 					while (now) {
 						if (now->getNumber() == numbers[i]) {
@@ -172,51 +172,71 @@ void main() {
 			}
 			break;
 		}
-		case 4:
+		case 4: {
+			string value;
 			system("cls");
-			if (quantity == 0) {
+			if (PhoneNumber::quantity == 0) {
 				cout << "Список пустой\n\n";
 			}
 			else {
-				cout << "· имя\n· фамилия\n· отчество\n· оператор\n";
+				cout << "· Имя\n· Фамилия\n· Отчество\n· Оператор\n";
 				quantityMenuItem = 3;
 				y = selectItemCursor(quantityMenuItem);
-				now = head;
 				system("cls");
-				quantityMenuItem = -1;
-				while (now)
-				{
-					switch (y) {
-					case 0:
-						cout << "· " << now->getName() << endl;
-						break;
-					case 1:
-						cout << "· " << now->getSurname() << endl;
-						break;
-					case 2:
-						cout << "· " << now->getPatronymic() << endl;
-						break;
-					case 3:
-						cout << "· " << now->getCellOperator() << endl;
-						break;
+				now = head;
+				switch (y) {
+				case 0:
+					cout << "Введите имя: ";
+					cin >> value;
+					system("cls");
+					while (now) {
+						if (now->getName() == value) {
+							now->print();
+						}
+						now = now->next;
 					}
-					now = now->next;
-					quantityMenuItem++;
+					break;
+				case 1:
+					cout << "Введите фамилию: ";
+					cin >> value;
+					system("cls");
+					while (now) {
+						if (now->getSurname() == value) {
+							now->print();
+						}
+						now = now->next;
+					}
+					break;
+				case 2:
+					cout << "Введите отчество: ";
+					cin >> value;
+					system("cls");
+					while (now) {
+						if (now->getPatronymic() == value) {
+							now->print();
+						}
+						now = now->next;
+					}
+					break;
+				case 3:
+					cout << "Введите оператор(Kyivstar, Vodafon, Life): ";
+					cin >> value;
+					system("cls");
+					while (now) {
+						if (now->getCellOperator() == value) {
+							now->print();
+						}
+						now = now->next;
+					}
+					break;
 				}
-				y = selectItemCursor(quantityMenuItem);
-				now = head;
-				system("cls");
-				for (int i = 0; i != y; i++)
-				{
-					now = now->next;
-				}
-				now->print();
 				cout << "Сумма всех номеров: " << now->sumAll << "\n\n";
 			}
 			break;
+		}
 		case 5:
 			system("cls");
-			if (quantity == 0) {
+			if (PhoneNumber::quantity == 0) {
 				cout << "Список пустой\n\n";
 			}
 			else {
@@ -235,17 +255,58 @@ void main() {
 		case 6: {
 			system("cls");
 			now = head;
-			cout << "На какое место вставить элемент?(всего " << quantity << ")\n";
+			cout << "· Автоматическая инициализация\n· Заполнение в ручную\n";
+			quantityMenuItem = 1;
+			y = selectItemCursor(quantityMenuItem);
+			system("cls");
+			cout << "На какое место вставить элемент?(всего " << PhoneNumber::quantity << ")\n";
 			cin >> numElement;
-			if (numElement < 1 || numElement > quantity + 1)
+			system("cls");
+			if (numElement < 1 || numElement > PhoneNumber::quantity + 1)
 			{
 				cout << "Ошибка: Вы вышли за пределы списка\n\n";
 				break;
 			}
 			PhoneNumber* new_obj = new PhoneNumber();
+			if (y == 1) {
+				string name, surname, patronymic;
+				system("cls");
+				cout << "Введите фамилию: ";
+				cin >> surname;
+				new_obj->setSurname(surname);
+				system("cls");
+				cout << "Введите имя: ";
+				cin >> name;
+				new_obj->setName(name);
+				system("cls");
+				cout << "Введите отчество: ";
+				cin >> patronymic;
+				new_obj->setPatronymic(patronymic);
+
+				system("cls");
+
+				cout << "· Kyivstar\n· Vodafon\n· Life";
+				quantityMenuItem = 2;
+				chsOperator = selectItemCursor(quantityMenuItem);
+				system("cls");
+				switch (chsOperator) {
+				case 0:
+					new_obj->setCellOperator("Kyivstar");
+					break;
+				case 1:
+					new_obj->setCellOperator("Vodafon");
+					break;
+				case 2:
+					new_obj->setCellOperator("Life");
+					break;
+				}
+				new_obj->setOperatorNumber(chsOperator);
+				new_obj->createNumber();
+				new_obj->setSumOneNumber();
+			}
 			PhoneNumber::sumAll += new_obj->getSumOne();
 			if (numElement == 1) {
-				if (quantity == 0) {
+				if (PhoneNumber::quantity == 0) {
 					head = new_obj;
 					head->previous = 0;
 				}
@@ -255,7 +316,7 @@ void main() {
 					head = new_obj;
 				}
 			}
-			else if (numElement == quantity + 1) {
+			else if (numElement == PhoneNumber::quantity + 1) {
 				last->next = new_obj;
 				new_obj->previous = last;
 				last = new_obj;
@@ -272,7 +333,7 @@ void main() {
 				nextToNow->previous = new_obj;
 				new_obj->previous = now;
 			}
-			quantity++;
+			PhoneNumber::quantity++;
 			now = head;
 			while (now) {
 				now->newNumber();
@@ -284,13 +345,13 @@ void main() {
 		case 7:
 			system("cls");
 			now = head;
-			if (quantity == 0) {
+			if (PhoneNumber::quantity == 0) {
 				cout << "Список пустой\n\n";
 			}
 			else {
-				cout << "Какой элемент удалить?(всего " << quantity << ")\n";
+				cout << "Какой элемент удалить?(всего " << PhoneNumber::quantity << ")\n";
 				cin >> numElement;
-				if (numElement < 1 || numElement > quantity)
+				if (numElement < 1 || numElement > PhoneNumber::quantity)
 				{
 					cout << "Ошибка: Вы вышли за пределы списка\n\n";
 					break;
@@ -298,7 +359,7 @@ void main() {
 				else if (numElement == 1) {
 					PhoneNumber::sumAll -= head->getSumOne();
 					nextToNow = head->next;
-					if (quantity == 1) {
+					if (PhoneNumber::quantity == 1) {
 						delete head;
 						head = 0;
 					}
@@ -308,7 +369,7 @@ void main() {
 						head->previous = 0;
 					}
 				}
-				else if (numElement == quantity) {
+				else if (numElement == PhoneNumber::quantity) {
 					PhoneNumber::sumAll -= last->getSumOne();
 					now = last->previous;
 					delete last;
@@ -326,7 +387,7 @@ void main() {
 					nextToNow = now->next;
 					nextToNow->previous = now;
 				}
-				quantity--;
+				PhoneNumber::quantity--;
 				now = head;
 				while (now) {
 					now->newNumber();
@@ -335,10 +396,9 @@ void main() {
 				cout << "Елемент успешно удален\n\n";
 			}
 			break;
-		case 8: {
-			int chsOperator;
+		case 8:
 			system("cls");
-			if (quantity == 0) {
+			if (PhoneNumber::quantity == 0) {
 				cout << "Список пустой\n\n";
 			}
 			else {
@@ -382,7 +442,6 @@ void main() {
 				now->print();
 			}
 			break;
-		}
 		case 9:
 			system("cls");
 			PhoneNumber::aboutAuthor();
